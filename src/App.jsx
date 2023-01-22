@@ -1,34 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState, useEffect } from 'react'
+import axios from 'axios';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [coord, setCoord] = useState({});
+  const [search, setSearch] = useState("Paris");
+
+  const getCoord = () =>{
+    axios.get(
+      `http://api.openweathermap.org/geo/1.0/direct?q=${search}&appid=${
+        import.meta.env.VITE_METEO_KEY
+      }`
+    )
+    .then((res) => (res.data.length ? setCoord(res.data[0]) : setCoord(null)))
+    .catch((err) => console.error(err));
+  };
+  
+  useEffect(() => {
+   getCoord();
+  },[]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault()};
+    search.length > 1 ? getCoord() : alert("Veuillez entrer un nom de ville");
+
+  const handleTextInput = (e) => {
+    setSearch(e.target.value);
+  };
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <>
+    <form onSubmit={handleSubmit}>
+      <input onChange={handleTextInput} type="text" name="city" id="city"/>
+      <input type="submit" value="Rechercher"/>
+    </form>
+    {coord ? (
+    <>
+    <p>Ville : {coord.name}</p>
+    <p>Latitude : {coord.lat}</p>
+    <p>Longitude : {coord.lon}</p> 
+    </>
+    ) : (
+    <p>Nous ne trouvons aucune ville de ce nom.</p>
+    )}
+    </>
   )
 }
 
-export default App
+export default App;
