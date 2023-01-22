@@ -20,8 +20,9 @@ function App() {
   },[]);
 
   const handleSubmit = (e) => {
-    e.preventDefault()};
+    e.preventDefault();
     search.length > 1 ? getCoord() : alert("Veuillez entrer un nom de ville");
+  };
 
   const handleTextInput = (e) => {
     setSearch(e.target.value);
@@ -35,7 +36,7 @@ function App() {
     </form>
     {coord ? (
     <>
-    <p>Ville : {coord.name}</p>
+    <p>Ville : {coord.local_names.fr}</p>
     <p>Latitude : {coord.lat}</p>
     <p>Longitude : {coord.lon}</p> 
     </>
@@ -43,7 +44,7 @@ function App() {
     <p>Nous ne trouvons aucune ville de ce nom.</p>
     )}
     </>
-  )
+  );
 }
 
 export default App;
