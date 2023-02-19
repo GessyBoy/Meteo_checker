@@ -1,14 +1,12 @@
-:root {
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
+@import url("https://fonts.googlelapis.com/css2?family=Roboto:wght@100;400&display=swap");
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+:root {
+--white-color: #fff;
+--main-grey-color: #eaeaea;
+--grey: #808080;
+--light-blue: #e0fffe;
+--main-blue: #c0edff;
+--dark-blue: #99d9ff;
 }
 
 * {
@@ -17,6 +15,17 @@
   padding: 0;
 }
 
-html, body, root {
+html,
+body,
+#root {
   height: 100%;
-};
+}
+
+body {
+  font-family: "Roboto", Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+}
